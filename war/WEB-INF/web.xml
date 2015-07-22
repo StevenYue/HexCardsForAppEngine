@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://java.sun.com/xml/ns/javaee"
+xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+	
+	
+	<servlet>
+		<servlet-name>BroadCastRoomList</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.BroadCastRoomList</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BroadCastRoomList</servlet-name>
+		<url-pattern>/broadcastroomlist</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>BroadCastUserSet</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.BroadCastUserSet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>BroadCastUserSet</servlet-name>
+		<url-pattern>/broadcastuserset</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CardsRequested</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.CardsRequested</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CardsRequested</servlet-name>
+		<url-pattern>/cardsrequested</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>EnterRoomServlet</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.EnterRoomServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EnterRoomServlet</servlet-name>
+		<url-pattern>/enterroom</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GameDateRequest</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.GameDateRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GameDateRequest</servlet-name>
+		<url-pattern>/gamedaterequest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GameStartRequest</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.GameStartRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GameStartRequest</servlet-name>
+		<url-pattern>/gamestartrequest</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>HandSubmittedServlet</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.HandSubmittedServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>HandSubmittedServlet</servlet-name>
+		<url-pattern>/handsubmitted</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>Logoff</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.Logoff</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Logoff</servlet-name>
+		<url-pattern>/logoff</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>GetOutofGameRequest</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.GetOutofGameRequest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetOutofGameRequest</servlet-name>
+		<url-pattern>/getoutofgame</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>LoginServlet</servlet-name>
+		<servlet-class>steeng.hexcards.servlet.LoginServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LoginServlet</servlet-name>
+		<url-pattern>/login</url-pattern>
+	</servlet-mapping>
+	
+	<listener>
+  		<listener-class>steeng.hexcards.listener.ContextInitializeListener</listener-class>
+	</listener>
+	
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+</web-app>
