@@ -14,7 +14,7 @@ h1{
 </head>
 
 <body>
-<h1>Rules of HEX CARDS <em>beta</em></h1>
+<h1>Rules of HEX CARDS <em>beta (With Bots)</em></h1>
 <hr>
 <h3>Origination:</h3>
 <p>HEX cards is poker game I used to play when I was just a kid, so presumably the game was 
@@ -35,6 +35,17 @@ vulnerability, and it's why it needs to be tested.
  the beta version only supports 
 a few hard-coded logins, no database or whatnot. Basically it's to test all the functionalities 
 of both front and back (Don't get me wrong, it's still very playable.).
+ </p>
+ 
+ <h3 style="color:red">Play with Bots</h3>
+ <p style="color:red">Four guys respectively named, StriderOfG, GodOfG, SaintOfG, RodOfG are not bots.
+	Their names are too attractive to be bots. Three of these names are from a series of HONGKONG 
+	movies, du xia, du shen, du sheng. du gun == RodOfG I think is definitely superior than all the others. <strong>
+	If you wanted to play with any of them, 1st getting into a room, and then click any of these four guys
+	, cause they are too ACE to pay attention to you, they are intrinsically the same though. 
+	Once you saw there are two guys in the same room, click start button as normal. Try beat them and
+	become the Rod of Gambler!!
+	</strong>	
  </p>
  
 <h3>How to play HEXCards with real cards <em>(Will explain how to play on my incomprehensible UI in 
@@ -66,8 +77,8 @@ later section)</em></h3>
 			</ul>
 		</li>
 		
-		<li>Tuo La Ji (Tractor is literal meaning, however this type of comb is called
-		straight). 
+		<li>Tuo La Ji (Tractor is literal meaning, however this type of combo is called
+		straight in fact). 
 			<ul>
 				<li>Type of card: (Bomb: three are the same), (Straight: three consecutive
 				ranks, A,2,3 and Q,K,A included),
@@ -107,7 +118,7 @@ later section)</em></h3>
 </p>
 
 <h3>How to HEXCards with my game <em>(Sucks at 1st sight, believe I tried, lovely HTML CSS)</em></h3>
-<img src="HEXCardUI.png" height="80%" width="80%">
+<img src="war/HEXCardUI.png" height="80%" width="80%">
 <ul><em>Few things to notice:</em>
 	<li>Rule Number 1: pay attention to message right above "Start" Button, especially when
 	you lost the track of the current game type. It almost tells you everything.</li>
@@ -124,6 +135,10 @@ later section)</em></h3>
 	</li>
 	<li>Rule Number 6: Get in a room before playing, and you can't start unless there are two
 	guys in the room. How to get in or out, or change room, click on the list you will know how.
+	</li>
+	<li>Rule Number 7: Little "out" button on the right side of "Start" button, whenever you saw
+	the guy you are playing with is gonna while you are still in game, click "out" if you still
+	want to play with other guys.
 	</li>
 	<li><strong>Logins: since not it's only for testing. so I hard coded a few logins:
 		{"Tester1","Tester1"} to {"Tester8","Tester8"} 8 of them. if you tried login and told 
