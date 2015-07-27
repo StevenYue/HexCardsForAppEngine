@@ -61,19 +61,28 @@ public class CardsRequested extends HttpServlet {
 		boolean bothHandIn = false;
 
 		round = game.getCardDeck().getARound();
+		Round botRound = null;
 		
 		if (requesterID.equals(game.getPlayer1ID())) {// This is player1
 			game.setP1Round(round);
+			if(game.isGameWithBot()){
+				botRound = game.getCardDeck().getARound();
+				game.setP2Round(botRound);
+			}
 			if (game.getP2Round() != null)
 				bothHandIn = true;
 		} else { // This is player2
 			game.setP2Round(round);
+			if(game.isGameWithBot()){
+				botRound = game.getCardDeck().getARound();
+				game.setP1Round(botRound);
+			}
 			if (game.getP1Round() != null)
 				bothHandIn = true;
 		}
 		
 		
-		if(round.isDead()){
+		if(round.isDead() || (botRound!=null && botRound.isDead())){
 			//Died Round
 			try {
 				jMsg.put(MSG_TYPE_DEAD_ROUND, MSG_ROUND_DIED);

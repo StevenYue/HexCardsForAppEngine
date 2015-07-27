@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import steeng.hexcards.datatype.Player;
 import steeng.hexcards.services.*;
 import static steeng.hexcards.datatype.SixCardsConstant.*;
 /**
@@ -44,10 +43,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String userID = null, password = null;
-		response.setContentType("application/json");
-		response.setCharacterEncoding("UTF-8");
-		
-		//ServletOutputStream out = response.getOutputStream();
 		
 		userID = request.getParameter("ID");
 		password = request.getParameter("password");
@@ -55,37 +50,34 @@ public class LoginServlet extends HttpServlet {
 		//brain here means the central unit, memorizing everything within this application
 		ServletContext brain = getServletContext();
 	
-		PrintWriter pw = response.getWriter();
 		Set<String> playerSet = (Set<String>) brain.getAttribute(PLAYERSET);
-		
 		LoginService loginService = LoginService.getLoginService();
 		
 		int res = loginService.varify(userID, password, playerSet);
-		JSONObject jMSG = new JSONObject();
-		try{
-			if (res > 0) {
-				// perfect match
-//				Player player = new Player(userID, pw);
-				synchronized (playerSet) {
-					playerSet.add(userID);
-//					System.out.println("PlayerSet Ref#:" + playerSet);
-				}
-				jMSG.put(MSG_TYPE_ACTION, MSG_RELOAD_PAGE_ON_SUCCESS);
-			} else if (res == -1) {
-				// password is wrong
-				jMSG.put(MSG_TYPE_ACTION, MSG_PASSWORDINCORRECT);
-			} else if (res == -2) {
-				// id existed
-				jMSG.put(MSG_TYPE_ACTION, MSG_USERNAMEUSED);
-			} else {
-				// no such user
-				jMSG.put(MSG_TYPE_ACTION, MSG_NOSUCHUSER);
-			}
-		}catch(Exception e){
-			e.printStackTrace();
+		if (res > 0) {
+			// perfect match
+			playerSet.add(userID);
+			// jMSG.put(MSG_TYPE_ACTION, MSG_RELOAD_PAGE_ON_SUCCESS);
+			request.setAttribute("ID", userID);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("gameplay.jsp");
+			dispatcher.forward(request, response);
+		} else if (res == -1) {
+			// password is wrong
+			// jMSG.put(MSG_TYPE_ACTION, MSG_PASSWORDINCORRECT);
+			// System.out.println("Password wrong");
+			response.sendRedirect("loginError.html?MSG=passwordwrong");
+		} else if (res == -2) {
+			// id existed
+			// jMSG.put(MSG_TYPE_ACTION, MSG_USERNAMEUSED);
+			// System.out.println("User Existed");
+			response.sendRedirect("loginError.html?MSG=userexisted");
+		} else {
+			// no such user
+			// jMSG.put(MSG_TYPE_ACTION, MSG_NOSUCHUSER);
+			// System.out.println("No such user");
+			response.sendRedirect("loginError.html?MSG=nosuchuser");
 		}
-		pw.println(jMSG.toString());
-		
-		//Now update the online user info in the playerMsgMap.
+					
+			//Now update the online user info in the playerMsgMap.
 	}
 }

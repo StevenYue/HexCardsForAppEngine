@@ -15,7 +15,7 @@ function formSubmitted(){
 	
 	$.ajax({
 		type : 'POST',// GET Or POST
-		url  : "/login",
+		url  : "login",
 		data:dataString,
 		dataType: "json",
 		 
@@ -25,7 +25,7 @@ function formSubmitted(){
 				var data = response.action;
 				if(data == "reload page on success"){
 					alert("Thank you for logging in!");
-					window.location.href = "gameplay.html?ID=" + $('input[name="ID"]').val();
+					//window.location.href = "gameplay.html?ID=" + $('input[name="ID"]').val();
 				}else{
 					alert(data);
 				}

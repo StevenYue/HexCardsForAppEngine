@@ -6,7 +6,6 @@
 	<link type="text/css" rel="stylesheet" href="jquery-ui/jquery-ui.css"/>
 	<script src="jquery-1.11.3.js"></script>
 	<script src="gameplay.js"></script>
-	<script src="jquery-ui/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -16,7 +15,7 @@
 		<label>Players Online</label>
 		
 		<ul id="userList">
-			
+		
 		</ul>
 		<!--<select id="userList">
 		</select>-->
@@ -35,14 +34,14 @@
 		<div class="cardBack" id="leftOver">DRAW</div>
 	
 		</br>
-		<textarea rows="7" cols = "25" id="msgWindow" disabled>
+		<textarea rows="7" cols = "28" id="msgWindow" disabled>
 		</textarea>
 	</div>
 
 
 	<div id="gameTitle">
-		<strong id="yourID"></strong>
-	
+		<strong>Welcome:</strong>
+		<strong id="yourID"><%=(String)request.getAttribute("ID")%></strong>
 		STATS
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<span>Yours:</span>

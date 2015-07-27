@@ -53,6 +53,7 @@ public class Logoff extends HttpServlet {
 		String userId = request.getParameter("ID");
 		String alterID =  userId +" (In Game)"; 
 		String gameID = request.getParameter("GAMEID");
+		Game game = null;
 		int roomIndex = Integer.parseInt(request.getParameter("ROOMID")) - 1;
 		if(userSet.contains(userId))
 			userSet.remove(userId);
@@ -60,18 +61,33 @@ public class Logoff extends HttpServlet {
 		if(userSet.contains(alterID)){
 			userSet.remove(alterID);
 			if(gameMap.containsKey(gameID)){
-				Game game = gameMap.get(gameID);
-				if(game.getPlayer1ID().equals(userId)){ //This if P1 log off
-					game.setP1MsgReceived(true);
-					game.setPlayer1ID("");
-					if(game.getPlayer2ID().equals(""))	gameMap.remove(gameID);
+				game = gameMap.get(gameID);
+				if(game.isGameWithBot()){
+					gameMap.remove(gameID);
+					String botId = "";
+					if(game.getPlayer1ID().equals(userId)){ //p2 is bot
+						botId = game.getPlayer2ID();
+					}else{ // p1 is bot
+						botId = game.getPlayer1ID();
+					}
+					String alterBotId = botId + " (In Game)";
+					if(userSet.contains(alterBotId))
+						userSet.remove(alterBotId);
 					
+					userSet.add(botId);
 				}else{
-					game.setP2MsgReceived(true);
-					game.setPlayer2ID("");
-					if(game.getPlayer1ID().equals(""))	gameMap.remove(gameID);
-	
+					if(game.getPlayer1ID().equals(userId)){ //This if P1 log off
+						game.setP1MsgReceived(true);
+						game.setPlayer1ID("");
+						if(game.getPlayer2ID().equals(""))	gameMap.remove(gameID);
+						
+					}else{
+						game.setP2MsgReceived(true);
+						game.setPlayer2ID("");
+						if(game.getPlayer1ID().equals(""))	gameMap.remove(gameID);
+					}
 				}
+				
 			}
 		}
 			
@@ -79,15 +95,21 @@ public class Logoff extends HttpServlet {
 		if(roomIndex > -1){
 			String str = roomList.get(roomIndex);
 			if(str.contains(userId)){// means you already in a room
-				String ss[] = str.split("-");
-				String strToPutBack = "";
-				if(ss[0].equals(userId)){
-					if(ss.length == 2)
-						strToPutBack = ss[1] + "-" ;
+				if(game != null && game.isGameWithBot()){
+					roomList.set(roomIndex,"");
 				}else{
-					strToPutBack = ss[0] + "-" ;
+					String ss[] = str.split("-");
+					String strToPutBack = "";
+					if(ss[0].equals(userId)){
+						if(ss.length == 2)
+							strToPutBack = ss[1] + "-" ;
+					}else{
+						strToPutBack = ss[0] + "-" ;
+					}
+					roomList.set(roomIndex,strToPutBack);
 				}
-				roomList.set(roomIndex,strToPutBack);
+				
+				
 			}
 		}
 			

@@ -46,7 +46,7 @@ public class BroadCastUserSet extends HttpServlet {
 		Set<String> userSet = (Set<String>) brain.getAttribute(PLAYERSET);
 		response.setContentType("application/json");
 		response.setCharacterEncoding("UTF-8");
-		
+
 		JSONObject jMsg = new JSONObject();
 		String userString = "";
 		

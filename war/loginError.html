@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>Log in Error</title>
+
+<script src="jquery-1.11.3.js"></script>
+<script type="text/javascript">
+
+$(document).ready(function(){
+	
+	
+	var msg = getUrlParameter("MSG");
+	
+	if(msg == "passwordwrong"){
+		$("#msg").text("Password is Incorrect!");
+	}else if(msg == "userexisted"){
+		$("#msg").text("User Existed!");
+	}else if(msg == "nosuchuser"){
+		$("#msg").text("No Such User!");
+	}
+});
+
+
+
+function getUrlParameter(sParam){
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) 
+    {
+        var sParameterName = sURLVariables[i].split('=');
+        if (sParameterName[0] == sParam) 
+        {
+            return sParameterName[1];
+        }
+    }
+}     
+</script>
+
+</head>
+
+<body>
+	<p id="msg"></p>
+	<a href = "index.html">Back To Login</a>
+
+</body>
+</html>

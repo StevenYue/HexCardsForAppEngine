@@ -9,7 +9,7 @@ var initPosFourToSix = [0,0,0];
 var cardHolderOneToSix = [0,0,0,0,0,0]; 
 var yourplunder = 0;
 var herplunder = 0;
-var yourID;
+var yourID="";
 var msgWindowString;
 var gameStarted = false;
 var gameInProgress = false;
@@ -23,9 +23,11 @@ $(document).ready(function(){
 	//$( "#userList" ).selectmenu();
 	
 	//get ID from the URL parameter
-	yourID = getUrlParameter("ID");
+	//yourID = getUrlParameter("ID");
+	
 	//WTF once having .text(), html stopped rendering
-	$("#yourID").text("Welcome:" + yourID);
+	//$("#yourID").text("Welcome:" + yourID);
+	yourID = $("#yourID").text();
 	
 	msgWindowString = "Welcome:" + yourID + "\n";
 	$("#msgWindow").text(msgWindowString);
@@ -50,6 +52,19 @@ $(document).ready(function(){
 	//Select the opponent
 	$("#roomList li").bind("click", function(){
 		roomListClickedHander($(this));
+	});
+	
+	$("#userList li").bind("click", function(){
+		userListClickedHander($(this));
+	});
+	
+	$("#userList li").bind("mouseover", function(){
+		if($(this).text().indexOf("OfG") < 0) return;
+		$(this).css("color","red");
+		$(this).css("cursor", "pointer");
+	});
+	$("#userList li").bind("mouseout", function(){
+		$(this).css("color","black");
 	});
 	
 	/*
@@ -295,12 +310,21 @@ function requestUserListUpdate() {
 					
 					$("#userList").append("<li>"+userIds[i]+"</li>"+"\n");
 				}
-/*
+
 				$("#userList li").unbind("click");
+				$("#userList li").unbind("mouseout");
+				$("#userList li").unbind("mouseover");
 				$("#userList li").bind("click", function(){
 					userListClickedHander($(this));
 				});
-*/	
+				$("#userList li").bind("mouseover", function(){
+					if($(this).text().indexOf("OfG") < 0) return;
+					$(this).css("color","red");
+					$(this).css("cursor", "pointer");
+				});
+				$("#userList li").bind("mouseout", function(){
+					$(this).css("color","black");
+				});
 		},
 		  
 		error: function(jqXHR, textStatus, errorThrown){
@@ -385,19 +409,22 @@ function requestGameDate(){
 					}
 					
 					//If this is the end of the game
-					if(response.gameend.indexOf("end") >= 0){
-						updateMsgWindow("***Game Finished***");
-						gameStarted = false;
-						opponentID = "";
-						gameID = "";
-						if(yourplunder > herplunder){
-							updateMsgWindow("***Congs!!!***");
-						}else if(yourplunder < herplunder){
-							updateMsgWindow("***Loser!!!***");
-						}else{
-							updateMsgWindow("***Tie????***");
+					if(typeof response.gameend === "undefined"){}
+					else{
+						if(response.gameend.indexOf("end") >= 0){
+							updateMsgWindow("***Game Finished***");
+							gameStarted = false;
+							opponentID = "";
+							gameID = "";
+							if(yourplunder > herplunder){
+								updateMsgWindow("***Congs!!!***");
+							}else if(yourplunder < herplunder){
+								updateMsgWindow("***Loser!!!***");
+							}else{
+								updateMsgWindow("***Tie????***");
+							}
+							updateMsgWindow("\n\n\n***Start Another One***\n");
 						}
-						updateMsgWindow("\n\n\n***Start Another One***\n");
 					}
 					
 				}else{
@@ -472,7 +499,7 @@ function addEffectToCardVoid(id){
 	var ff = "#" + id;
 	$(ff).css("border","1px solid black");
 	$(ff).bind("mouseover",function(){
-		$(ff).css("border", "3px solid red");
+		$(ff).css("border", "1px solid red");
 		$(ff).css("cursor", "pointer");
 	}).bind("mouseout",function(){
 		$(ff).css("border","1px solid black");
@@ -481,7 +508,7 @@ function addEffectToCardVoid(id){
 
 function removerEffectFromCardVoid(id){
 	var ff = "#" + id;
-	$(ff).css("border","0px");
+	$(ff).css("border","1px solid rgba(0,0,0,.0)");
 	$(ff).off("mouseover");
 	$(ff).off("mouseout");
 }
@@ -506,16 +533,24 @@ function roomListClickedHander(item){
 }
 
 function userListClickedHander(item){
-	if(gameStarted) return;
+	if(gameStarted || roomID == 0) return;
 	if($(item).text().indexOf("In Game")>=0) return;
+	if($(item).text().indexOf("OfG") < 0) return; // this means it's not a bot
 	opponentID = $(item).text();
 	if(yourID>opponentID)
 		gameID = yourID+"-"+opponentID;
 	else
 		gameID = opponentID+"-"+yourID;
 	$("#herID").text(opponentID+":");
-	msg = "Opponent: " + opponentID;
+	msg = opponentID + " is not a Bot!!!";
  	updateMsgWindow(msg);
+	var jMsg = {"ROOMID": roomID, "ID":opponentID};
+	$.ajax({
+		type : 'POST',// GET Or POST
+		url  : "/enterroom",
+		data: jMsg,
+		dataType: "json",
+	});
 }
 
 function interpretURL(url){

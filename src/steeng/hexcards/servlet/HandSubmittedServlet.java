@@ -89,7 +89,7 @@ public class HandSubmittedServlet extends HttpServlet {
 		Game game = gameMap.get(gameID);
 		int res = 27; // the designed numbers are -1,0,1
 		JSONObject jMsg = new JSONObject();
-		if(cards.length == 1){//This is a type one game
+		if(cards.length == TYPE_ONE_GAME){//This is a type one game
 			Round round = null;
 			if(game.getPlayer1ID().equals(yourID)){//This is player 1
 				round = game.getP1Round();
@@ -112,21 +112,28 @@ public class HandSubmittedServlet extends HttpServlet {
 		
 		
 		if(yourID.equals(game.getPlayer1ID())){//This is player 1
-			game.setPlayer1Handin(hand);
+			game.setPlayer1Handin(hand);			
+			if(game.isGameWithBot()){
+				Hand bothand = game.getP2Round().getThreeHands().poll();
+				game.setPlayer2Handin(bothand);
+			}
+			
 			if(game.getPlayer2Handin() != null){
 				res = game.getPlayer2Handin().compareTo(hand);
-	
 			}
 			
 		}else{//This is player 2
 			game.setPlayer2Handin(hand);
-			if(game.getPlayer1Handin() != null){
-				res = game.getPlayer2Handin().compareTo(game.getPlayer1Handin());// make sure always player2 compare to player1
-			
+			if(game.isGameWithBot()){
+				Hand bothand = game.getP1Round().getThreeHands().poll();
+				game.setPlayer1Handin(bothand);
 			}
 			
+			if(game.getPlayer1Handin() != null){
+				res = game.getPlayer2Handin().compareTo(game.getPlayer1Handin());// make sure always player2 compare to player1
+			}
 		}
-
+		
 		if(res != 27){
 			try {
 				if(res == 0){//tie

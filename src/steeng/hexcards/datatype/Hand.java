@@ -28,11 +28,21 @@ public class Hand implements Comparable<Hand>{
 		type = h.length;
 		cards = new Card[type];
 		value = new int[type+1];
+		
 		for(int i=0;i<type;i++){
 			if(h[i].getRank() == BIGJOKER) jokerCounts++;
 			cards[i] = new Card(h[i].getRank(),h[i].getSuit());
 		}
 		Arrays.sort(cards);
+		if(type == TYPE_ONE_GAME){
+			value[0] = h[0].getRank() == BIGJOKER? KING: h[0].getRank();
+			switch(h[0].getSuit()){
+			case SPADE: value[1] = 4;break;
+			case HEART: value[1] = 3;break;
+			case CLUB: value[1] = 2; break;
+			case DIAMOND: value[1] = 1;break;
+			}
+		}
 		if(type == TYPE_TWO_GAME)
 			value = SixCardsCalculator.calTypeTwoHand(this);
 		if(type == TYPE_THREE_GAME)
@@ -50,6 +60,15 @@ public class Hand implements Comparable<Hand>{
 			value = SixCardsCalculator.calTypeTwoHand(this);
 		if(type == TYPE_THREE_GAME)
 			value = SixCardsCalculator.calTypeThreeHand(this);
+		if(type == TYPE_ONE_GAME){
+			value[0] = h[0].getRank() == BIGJOKER? KING: h[0].getRank();
+			switch(h[0].getSuit()){
+			case SPADE: value[1] = 4;break;
+			case HEART: value[1] = 3;break;
+			case CLUB: value[1] = 2; break;
+			case DIAMOND: value[1] = 1;break;
+			}
+		}
 	}
 	public Hand(Card c1) throws TypeTwoGameDiedException{
 		this.type = TYPE_ONE_GAME;

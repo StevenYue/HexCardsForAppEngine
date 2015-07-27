@@ -63,12 +63,32 @@ public class GameStartRequest extends HttpServlet {
 				}
 			}
 			
-			
-			
 		}else{
 			Game game = new Game(gameID);
 			gameMap.put(gameID, game);
+			
+			//means this is a game with Bot
+			if(gameID.contains(BOT_IDENTIFIER)){
+				JSONObject jMsg = new JSONObject();
+				try {
+					jMsg.put(MSG_TYPE_GAME_DATA, MSG_GAME_START);
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+				game.setGameMsg(jMsg.toString());
+				String ss[] = gameID.split("-");
+				for (String s : ss) {
+					if (userSet.contains(s)) {
+						userSet.remove(s);
+						userSet.add(s + " (In Game)");
+					}
+				}
+			}
+			
 		}
+		
+		
+		
 	}
 
 }

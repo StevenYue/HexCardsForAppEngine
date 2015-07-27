@@ -31,6 +31,7 @@ body{
 	margin: auto;
 	text-align: center;
 }
+
 .cardBack:hover{
 	border:3px solid red;
 	cursor: pointer;
@@ -48,25 +49,14 @@ body{
 	display: table-cell;
 	border:1px solid black;
 	border-radius:10px;
+
 }
+
+
 .cardHolder:hover{
-	border:3px solid red;
+	border:1px solid red;
 	cursor: pointer;
 }
-.card{
-	height:168px;
-	width:120px;
-	background-image:url("img/1h.png");
-	background-size:120px 168px; /*:width height*/
-	text-align:center;
-	display: table-cell;
-}
-.card:hover{
-	border:3px solid red;
-	cursor: pointer;
-}
-
-
 
 
 
@@ -101,7 +91,7 @@ body{
 
 #rightDiv{
 	float:right;
-	margin-right:30px;
+	margin-right:10px;
 }
 #outButton{
 	float:right;
@@ -123,9 +113,12 @@ body{
 	cursor:pointer;
 }
 
-#yourID{
+strong{
 	float: left;
 	margin-left: 20px;
+}
+#yourID{
+	margin-left:2px;
 }
 
 
@@ -139,7 +132,7 @@ label {
 
 #roomList,#userList{
 	background-color: #FFFFFF;
-	width: 180px;
+	width: 220px;
     height: 90px;
     line-height: 16px;
     border: 1px solid #ccc;
@@ -156,6 +149,5 @@ label {
 #roomList li:hover{
 	color: red;
 	cursor:pointer;
-	font-weight: bold;
 }
 

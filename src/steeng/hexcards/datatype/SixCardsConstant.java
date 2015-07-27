@@ -71,4 +71,9 @@ public class SixCardsConstant {
 	public static final String MSG_TYPE_DEAD_ROUND = "deadround";
 	public static final String MSG_TYPE_NEW_USER_BROADCAST = "newuserbroadcast";
 	public static final String MSG_TYPE_ROOM_LIST_BROADCAST = "roomlistbroadcast";
+	
+	
+	//Bots
+	public static final String BOT_NAMES[] = {"GodOfG","SaintOfG","StriderOfG","RodOfG"};
+	public static final String BOT_IDENTIFIER = "OfG";
 }

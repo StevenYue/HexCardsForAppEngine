@@ -1,4 +1,6 @@
 package steeng.hexcards.datatype;
+import static steeng.hexcards.datatype.SixCardsConstant.*;
+
 
 public class Game {
 	private String gameID;
@@ -13,6 +15,8 @@ public class Game {
 	private boolean p1MsgReceived = false;
 	private boolean p2MsgReceived = false;
 	
+	private boolean gameWithBot = false;
+	
 	//n is the amount of card decks
 	public Game(String gameID){
 		this.player1Hand = null;
@@ -23,11 +27,13 @@ public class Game {
 		String ss[] = gameID.split("-");
 		this.player1ID = ss[0].trim();
 		this.player2ID = ss[1].trim();
+		if(gameID.contains(BOT_IDENTIFIER)) gameWithBot = true;
 		
 		cardDeck = new CardDeck(2);
 	}
 
 	//All getter and setter
+	public boolean isGameWithBot(){return gameWithBot;}
 	public String getGameID() {return gameID;}
 	public String getPlayer1ID() {return player1ID;}
 	public void setPlayer1ID(String id) {player1ID = id;}
@@ -40,12 +46,21 @@ public class Game {
 	public void setPlayer2Handin(Hand player2Handin) {this.player2Hand = player2Handin;}
 	public String getGameMsg() {return gameMsg;}
 	public void setGameMsg(String gameMsg) {this.gameMsg = gameMsg;}
+	
+	
 	public Round getP1Round() {return p1Round;}
-	public void setP1Round(Round p1Round) {this.p1Round = p1Round;}
+	public void setP1Round(Round p1Round) {
+		if(player1ID.contains(BOT_IDENTIFIER)) p1Round.botThinking();
+		this.p1Round = p1Round;
+	}
 	public Round getP2Round() {return p2Round;}
-	public void setP2Round(Round p2Round) {this.p2Round = p2Round;}
+	public void setP2Round(Round p2Round) {
+		if(player2ID.contains(BOT_IDENTIFIER)) p2Round.botThinking();
+		this.p2Round = p2Round;
+	}
 
 	public boolean isP1MsgReceived() {
+		if(player1ID.contains(BOT_IDENTIFIER)) p1MsgReceived = true;
 		return p1MsgReceived;
 	}
 
@@ -54,14 +69,12 @@ public class Game {
 	}
 
 	public boolean isP2MsgReceived() {
+		if(player2ID.contains(BOT_IDENTIFIER)) p2MsgReceived = true;
 		return p2MsgReceived;
 	}
 
 	public void setP2MsgReceived(boolean p2MsgReceived) {
 		this.p2MsgReceived = p2MsgReceived;
 	}
-	
-	
-	
 	
 }

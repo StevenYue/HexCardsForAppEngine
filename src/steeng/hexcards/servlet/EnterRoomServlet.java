@@ -73,7 +73,7 @@ public class EnterRoomServlet extends HttpServlet {
 				}else{
 					strToPutBack = ss[0] + "-" ;
 				}
-				System.out.println("1111"+strToPutBack + "1111");
+			
 				roomList.set(i,strToPutBack);
 				if(i == roomIndex) return;
 				else break;

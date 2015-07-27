@@ -28,6 +28,9 @@ public class ContextInitializeListener implements ServletContextListener{
 		for(int i=0;i<5;i++){
 			roomList.add("");
 		}
+		for(int i=0;i<BOT_NAMES.length;i++){
+			playerSet.add(BOT_NAMES[i]);
+		}
 //		final Map<String,String> playerMsgMap= Collections.synchronizedMap(new HashMap<String,String>());
 //		appScope.setAttribute(PLAYERMSGMAP, playerMsgMap);
 		appScope.setAttribute(GAMEMAP, gameMap);
